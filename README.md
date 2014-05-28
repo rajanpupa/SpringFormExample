@@ -1,28 +1,30 @@
-SpringSecurityWithXml
-=====================
+SpringFormHandeling Simplest Example
+====================================
 
-Sprint security with hardcoaded credentials in xml file. Very simple project.
+This project demos the simplest Spring application form handeling example.
 
-The steps for the creation of this project are very simple
-* First, Create a maven webapp project.
-* In the pom.xml file, add dependencies for the spring, spring webmvc, spring content, spring security web, spring security config etc
-* Add the spring security related filters for all url pattern in the web.xml file, along with the dispatcher servlet configuration
-* In the dispatcher servlet configuration file(dispatcher-servlet.xml), set the component scan tag to search for the annotation driven controllers, also set the viewResolver
-* Add the spring-security.xml file for spring security to consume, set http autoconfig to true along with the pattern of url to intercept, and the ROLE required
-* Add the authentication manager as well, (for this particular project, the authentication manager is hard coded)
-* Add the maven plugin jetty as well, if you want to run your project locally for debugging(pom.xml)
-* Run your application with goal (jetty:run)
+The model class is
+    - Contact.java
+        -- firstName
+        -- lastName
+        -- email
+        -- telephone
 
-## NOTE
-. For Spring to load all the files associated with it, you have to list them all in the web.xml file under following tag
-```
-<!-- Spring context files to be loaded -->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            /WEB-INF/spring/dispatcher-servlet.xml,
-            /WEB-INF/spring/spring-security.xml,
-            /WEB-INF/spring/spring-module.xml
-        </param-value>
-    </context-param>
-```
+The controller is 
+    - ContactController.java
+
+This controller has methods to handle request to /, /contacts, and post request to addContact url.
+
+### Note
+- Spring is configured to scan for annotations in com.gazecode package. So it will find the controller
+- There may be unnecessary spring files not relevant for this project.
+- 
+
+### Output
+- Run the Project from Maven Build with the goal "jetty:run"
+- access the location localhost:8080
+- The form will be displayed, which is contact.jsp
+- The form will be submitted to "addContact.html"
+- The form fields are automatically binded to the ContactController's addContact method, which is configured to handle post requests on that url
+- The fields in the form will be printed in the console, and again the same page is thrown with the same data in the forms...
+-- Simple huh...
